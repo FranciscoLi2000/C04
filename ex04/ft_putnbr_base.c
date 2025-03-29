@@ -1,4 +1,5 @@
-#include "exam_rank02.h"
+#include <unistd.h>
+#include <ctype.h>
 /* 这道题需要了解：什么是进制？以及如何计算来实现在二八十十六进制间相互转换 */
 static int	get_base(char *base)
 {
@@ -18,20 +19,19 @@ static int	get_base(char *base)
 	return (i);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void ft_putnbr_base(int nbr, char *base)
 {
-	int	result;
-	int	remainder;
-	int	i;
+    int			base_len;
 
-	result = 0;
-	i = 1;
-	while (nbr != 0)
-	{
-		remainder = nbr % get_base(base);
-		nbr = nbr / get_base(base);
-		result += remainder * i;
-		i *= get_base(base);
-	}
-	ft_putnbr(result);
+    base_len = get_base(base);
+    if (base_len < 2)
+        return ;
+    if (nbr < 0)
+    {
+        write(1, "-", 1);
+        nbr = -nbr;
+    }
+    if (nbr >= base_len)
+        ft_putnbr_base(nbr / base_len, base);
+    write(1, &base[nbr % base_len], 1);
 }

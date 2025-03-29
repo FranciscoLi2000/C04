@@ -25,48 +25,31 @@ static int get_base(char *base)
 
 int ft_atoi_base(char *str, char *base)
 {
-    int nb;
-    int is_negative;
-    int base_len;
-    int i;
-
-    base_len = get_base(base);
-    if (base_len < 2)
-        return (0);  // Base no válida.
-
-    // Salta los espacios en blanco
-    while (isspace(*str))
-        str++;
-
-    // Maneja el signo
-    is_negative = 0;
-    if (*str == '-')
-    {
-        is_negative = 1;
-        str++;
-    }
-    else if (*str == '+')
-    {
-        str++;
-    }
+    int         nb;
+    int         sign;
+    int         base_len;
 
     nb = 0;
+    sign = 1;
+    base_len = get_base(base);
+    if (base_len < 2)
+        return (0);
+    while (isspace(*str))
+        str++;
+    if (*str == '-' || *str == '+')
+    {
+        if (*str++ == '-')
+            sign = -1;
+        sign = 1;
+    }
     while (*str)
     {
-        // Buscar el valor correspondiente del carácter en la base
-        i = 0;
-        while (base[i] != '\0' && base[i] != *str)
-            i++;
-
-        if (base[i] == '\0')  // Carácter no válido para la base.
-            break;
-
-        nb = nb * base_len + i;
+        while (*base != '\0' && *base != *str)
+            base++;
+        if (!*base)
+            break ;
+        nb = nb * base_len + *base;
         str++;
     }
-
-    if (is_negative)
-        return (-nb);  // Si es negativo, devolver el valor negativo.
-
-    return (nb);  // Retorna el número calculado.
+    return (nb * sign);
 }
