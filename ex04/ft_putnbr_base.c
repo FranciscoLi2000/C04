@@ -19,19 +19,19 @@ static int	get_base(char *base)
 	return (i);
 }
 
-void ft_putnbr_base(int nbr, char *base)
+void	ft_putnbr_base(int nbr, char *base)
 {
-    int			base_len;
+	int	base_len;
 
-    base_len = get_base(base);
-    if (base_len < 2)
-        return ;
-    if (nbr < 0)
-    {
-        write(1, "-", 1);
-        nbr = -nbr;
-    }
-    if (nbr >= base_len)
-        ft_putnbr_base(nbr / base_len, base);
-    write(1, &base[nbr % base_len], 1);
+	base_len = get_base(base);
+	if (base_len < 2)
+		return ;
+	if (nbr < 0)
+	{
+		write(1, "-", 1);
+		nbr = -nbr;
+	}
+	if (nbr >= base_len)
+		ft_putnbr_base(nbr / base_len, base);
+	write(1, &base[nbr % base_len], 1);
 }
