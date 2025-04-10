@@ -25,3 +25,17 @@ int	ft_atoi(char *str)
 		return (-nb);
 	return (nb);
 }
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(void)
+{
+	char	str[50];
+
+	printf("Enter a string: ");
+	scanf("%s", str);
+	printf("Original %i\n", atoi(str));
+	printf("Mine %i\n", ft_atoi(str));
+	return (0);
+}
